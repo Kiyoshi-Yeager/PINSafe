@@ -106,6 +106,7 @@ public class PINChestManager implements Listener {
                             }
                         }
                             waitingPINChestList.get(player).getLocation().getBlock().setType(Material.ENDER_CHEST);
+                            waitingPINChestList.get(player).getLocation().getBlock().setBlockData(waitingPINChestList.get(player).getBlockData());
                             PINChest pinChest = new PINChest(password, player.getUniqueId(), waitingPINChestList.get(player).getLocation(), size);
                             player.openInventory(pinChest.getInventory());
                             waitingPINChestList.remove(player);
