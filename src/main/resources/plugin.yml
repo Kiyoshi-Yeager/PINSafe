@@ -2,3 +2,6 @@ name: PINSafe
 version: '1.0-SNAPSHOT'
 main: me.kiyoshi.pINSafe.Plugin
 api-version: '1.21'
+
+commands:
+  getpinsafe:

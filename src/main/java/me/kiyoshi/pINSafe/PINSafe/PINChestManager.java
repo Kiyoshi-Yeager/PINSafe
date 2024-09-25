@@ -1,17 +1,18 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
+import me.kiyoshi.pINSafe.util.ChatUtil;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -56,7 +57,7 @@ public class PINChestManager implements Listener {
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
-        if (event.getItemInHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("PINChest"))) {
+        if (event.getItemInHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("pin_chest"))) {
             event.setCancelled(true);
             placePinChest(event.getBlock(), event.getPlayer());
         }
@@ -84,34 +85,106 @@ public class PINChestManager implements Listener {
                     if (cnt > 1) {
                         player.closeInventory();
                         int size = 9;
-                        if (player.getInventory().getItemInMainHand().getItemMeta() != null || player.getInventory().getItemInOffHand().getItemMeta() != null) {
-                            if (player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("PINChest"))) {
+                        if (player.getInventory().getItemInMainHand().getItemMeta() != null) {
+                            if (player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("pin_chest"))) {
                                 size = player.getInventory().getItemInMainHand().getPersistentDataContainer().get(NamespacedKey.fromString("size"), PersistentDataType.INTEGER);
                                 if (player.getInventory().getItemInMainHand().getAmount() <= 1) {
                                     player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-                                }
-                                else {
+                                } else {
                                     player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
                                 }
                             }
-                            else if (player.getInventory().getItemInOffHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("PINChest"))) {
+                        }
+                        if (player.getInventory().getItemInOffHand().getItemMeta() != null) {
+                            if (player.getInventory().getItemInOffHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("pin_chest"))) {
                                 size = player.getInventory().getItemInOffHand().getPersistentDataContainer().get(NamespacedKey.fromString("size"), PersistentDataType.INTEGER);
                                 if (player.getInventory().getItemInOffHand().getAmount() <= 1) {
                                     player.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
-                                }
-                                else {
+                                } else {
                                     player.getInventory().getItemInOffHand().setAmount(player.getInventory().getItemInOffHand().getAmount() - 1);
                                 }
                             }
+                        }
                             waitingPINChestList.get(player).getLocation().getBlock().setType(Material.ENDER_CHEST);
-                            PINChest pinChest = new PINChest(password, player.getUniqueId().toString(), waitingPINChestList.get(player).getLocation(), size);
+                            PINChest pinChest = new PINChest(password, player.getUniqueId(), waitingPINChestList.get(player).getLocation(), size);
                             player.openInventory(pinChest.getInventory());
                             waitingPINChestList.remove(player);
+                    }
+                } else if (event.getSlot() <= 10) {
+                    int slot = event.getSlot();
+                    if (eventInventory.getItem(slot) == null) {
+                        eventInventory.setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1).setName(" ").build());
+                    }
+                    else {
+                        eventInventory.setItem(slot, null);
+                    }
+                }
+            } else if (event.getInventory().getItem(0).getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("open_chest_button"))) {
+                event.setCancelled(true);
+                if (event.getSlot() == 0) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i = 1; i < 10; i++) {
+                        if (event.getInventory().getItem(i) == null) {
+                            stringBuilder.append("0");
+                        } else {
+                            stringBuilder.append("1");
                         }
+                    }
+                    String password = stringBuilder.toString();
+                    if (password.equals(event.getInventory().getItem(0).getItemMeta().getPersistentDataContainer().get(NamespacedKey.fromString("password"), PersistentDataType.STRING))) {
+                        Player player = (Player) event.getWhoClicked();
+                        List<String> locationString = List.of(event.getInventory().getItem(0).getPersistentDataContainer().get(NamespacedKey.fromString("location"), PersistentDataType.STRING).toString().split(","));
+                        World world = Bukkit.getWorld(locationString.get(0));
+                        int x = Integer.parseInt(locationString.get(1));
+                        int y = Integer.parseInt(locationString.get(2));
+                        int z = Integer.parseInt(locationString.get(3));
+                        Location location = new Location(world, x, y, z);
+                        PINChest pinChest = getPINChestByLocation(location);
+                        player.openInventory(pinChest.getInventory());
+                    }
+                } else if (event.getSlot() <= 10) {
+                    int slot = event.getSlot();
+                    if (event.getInventory().getItem(slot) == null) {
+                        event.getInventory().setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1).setName(" ").build());
+                    }
+                    else {
+                        event.getInventory().setItem(slot, null);
                     }
                 }
             }
         }
     }
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        PINChest pinChest = getPINChestByLocation(event.getBlock().getLocation());
+        if (pinChest != null) {
+            ChatUtil.sendMessage(Bukkit.getPlayer(pinChest.getPlayerUuid()), "Твое хранилище было сломано!");
+            registerPINChestList.remove(pinChest);
+        }
+    }
 
+    @EventHandler
+    public void onOpen(PlayerInteractEvent event) {
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Player player = event.getPlayer();
+            Block block = event.getClickedBlock();
+            if (block.getType() == Material.ENDER_CHEST) {
+                PINChest pinChest = getPINChestByLocation(block.getLocation());
+                if (pinChest != null) {
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    Inventory inventory = Bukkit.createInventory(null, InventoryType.WORKBENCH, "Введите пароль:");
+                    Location location = pinChest.getLocation();
+                    String stringLocation = location.getWorld().getName() + "," + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ();
+                    inventory.setItem(0, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, 1)
+                            .setName("&r&aОткрыть хранилище")
+                            .addPersistent("open_chest_button", PersistentDataType.BOOLEAN, true)
+                            .addPersistent("password", PersistentDataType.STRING, pinChest.getPassword())
+                            .addPersistent("location", PersistentDataType.STRING, stringLocation)
+                            .build());
+                    player.openInventory(inventory);
+                }
+            }
+        }
+    }
 }
