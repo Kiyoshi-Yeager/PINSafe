@@ -18,7 +18,7 @@ public final class Plugin extends JavaPlugin {
         ReloadRegisterPINChest.instance.loadRegisterPinChest();
         getCommand("getpinsafe").setExecutor(new GetPINChestCMD());
         getServer().getPluginManager().registerEvents(PINChestManager.instance, this);
-
+        saveDefaultConfig();
     }
 
     @Override

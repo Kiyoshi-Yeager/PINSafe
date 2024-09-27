@@ -1,0 +1,7 @@
+safe_block: ENDER_CHEST
+menu_title:
+  create_password: '&9Create password:'
+  save_password: '&r&aSave PIN code'
+
+  enter_password: '&9Enter the password:'
+  try_open_safe: "&r&aOpen the safe"

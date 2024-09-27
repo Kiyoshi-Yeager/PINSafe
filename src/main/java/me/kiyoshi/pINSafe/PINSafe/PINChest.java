@@ -1,8 +1,12 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
+import me.kiyoshi.pINSafe.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.UUID;
 
@@ -26,7 +30,20 @@ public class PINChest {
         this.password = password;
         this.playerUuid = playerUuid;
         this.location = location;
-        this.inventory = Bukkit.createInventory(null, size, "Хранилище");
+        if (size % 9 != 0) {
+            int newSize = ((size / 9) + 1) * 9;
+            this.inventory = Bukkit.createInventory(null, newSize, "Хранилище");
+            int remains = newSize - size;
+            ItemStack itemStack = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1)
+                    .setName("&rBlock_slot")
+                    .addPersistent("block_slot", PersistentDataType.BOOLEAN, true)
+                    .build();
+            for (int i = newSize - 1; i >= newSize - remains; i--) {
+                this.inventory.setItem(i, itemStack);
+            }
+        } else {
+            this.inventory = Bukkit.createInventory(null, size, "Хранилище");
+        }
 
         PINChestManager.instance.registerPINChestList.add(this);
     }
