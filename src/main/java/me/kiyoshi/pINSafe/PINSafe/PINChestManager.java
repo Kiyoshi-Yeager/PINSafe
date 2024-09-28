@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -50,7 +49,7 @@ public class PINChestManager implements Listener {
 
     public void placePinChest(Block block, Player player) {
         Inventory inventory = Bukkit.createInventory(null, InventoryType.WORKBENCH, ConfigLoad.create_password);
-        inventory.setItem(0, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, 1)
+        inventory.setItem(0, new ItemBuilder(ConfigLoad.done_button_material, 1)
                 .setName(ConfigLoad.save_password)
                 .addPersistent("save_password_button", PersistentDataType.BOOLEAN, true)
                 .build());
@@ -142,7 +141,7 @@ public class PINChestManager implements Listener {
                         } else if (event.getSlot() <= 10) {
                             int slot = event.getSlot();
                             if (eventInventory.getItem(slot) == null) {
-                                eventInventory.setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1).setName(" ").build());
+                                eventInventory.setItem(slot, new ItemBuilder(ConfigLoad.pressed_button_material, 1).setName(" ").build());
                             } else {
                                 eventInventory.setItem(slot, null);
                             }
@@ -177,7 +176,7 @@ public class PINChestManager implements Listener {
                         } else if (event.getSlot() <= 10) {
                             int slot = event.getSlot();
                             if (event.getInventory().getItem(slot) == null) {
-                                event.getInventory().setItem(slot, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1).setName(" ").build());
+                                event.getInventory().setItem(slot, new ItemBuilder(ConfigLoad.pressed_button_material, 1).setName(" ").build());
                             } else {
                                 event.getInventory().setItem(slot, null);
                             }
@@ -245,11 +244,12 @@ public class PINChestManager implements Listener {
                         player.closeInventory();
                         if (player.hasPermission("pinsafe.opensafenopassword")) {
                             player.openInventory(pinChest.getInventory());
+                            player.playSound(pinChest.getLocation(), ConfigLoad.safe_open_sound, ConfigLoad.safe_open_volume, ConfigLoad.safe_open_speed);
                         } else {
                             Inventory inventory = Bukkit.createInventory(null, InventoryType.WORKBENCH, ConfigLoad.enter_password);
                             Location location = pinChest.getLocation();
                             String stringLocation = location.getWorld().getName() + "," + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ();
-                            inventory.setItem(0, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, 1)
+                            inventory.setItem(0, new ItemBuilder(ConfigLoad.done_button_material, 1)
                                     .setName(ConfigLoad.try_open_safe)
                                     .addPersistent("open_chest_button", PersistentDataType.BOOLEAN, true)
                                     .addPersistent("password", PersistentDataType.STRING, pinChest.getPassword())

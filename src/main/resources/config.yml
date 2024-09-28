@@ -21,6 +21,9 @@ menu:
     material: BLACK_STAINED_GLASS_PANE
     name: '&cLocket slot'
 
+  pressed_button_material: RED_STAINED_GLASS_PANE
+  done_button_material: LIME_STAINED_GLASS_PANE
+
 sound:
   safe_open:
     sound: BLOCK_CHEST_OPEN
@@ -45,3 +48,5 @@ message:
 
   no_permission_to_create: "&cYou don't have permission to create a safe"
   no_permission_to_open: '&cYou do not have permission to open the safe'
+
+  success_safe_give: '&aThe safe has been successfully issued'

@@ -43,7 +43,7 @@ public class PINChest {
                 this.inventory.setItem(i, itemStack);
             }
         } else {
-            this.inventory = Bukkit.createInventory(null, size, "Хранилище");
+            this.inventory = Bukkit.createInventory(null, size, ConfigLoad.safe_menu_title.replace("%player%", Bukkit.getOfflinePlayer(playerUuid).getName()));
         }
 
         PINChestManager.instance.registerPINChestList.add(this);

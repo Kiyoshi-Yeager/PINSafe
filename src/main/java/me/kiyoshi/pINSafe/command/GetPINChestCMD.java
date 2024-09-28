@@ -33,6 +33,7 @@ public class GetPINChestCMD implements TabExecutor {
         int size = Integer.parseInt(args[0]);
         if (size <= 0 || size >= 55) {
             ChatUtil.sendMessage(commandSender, ConfigLoad.incorrect_inventory_size_message);
+            return true;
         }
         Player player;
         if (!(commandSender instanceof Player)) {
@@ -66,6 +67,7 @@ public class GetPINChestCMD implements TabExecutor {
                 .addPersistent("pin_chest", PersistentDataType.BOOLEAN, true)
                 .addPersistent("size", PersistentDataType.INTEGER, size)
                 .build());
+        ChatUtil.sendMessage(commandSender, ConfigLoad.success_safe_give_message);
         return true;
     }
 

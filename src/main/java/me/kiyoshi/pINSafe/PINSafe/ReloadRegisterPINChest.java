@@ -68,7 +68,7 @@ public class ReloadRegisterPINChest {
                 UUID uuid = UUID.fromString(config.getString(key + ".uuid"));
                 Location location = config.getLocation(key + ".location");
                 int size = config.getInt(key + ".size");
-                Inventory inventory = Bukkit.createInventory(null, size, ConfigLoad.safe_menu_title);
+                Inventory inventory = Bukkit.createInventory(null, size, ConfigLoad.safe_menu_title.replace("%player%", Bukkit.getOfflinePlayer(uuid).getName()));
                 ConfigurationSection inventorySection = config.getConfigurationSection(key + ".inventory");
                 for (String slotKey: inventorySection.getKeys(false)) {
                     int slot = Integer.parseInt(slotKey);

@@ -35,6 +35,8 @@ public class ConfigLoad {
     public static final String incorrect_inventory_size_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.incorrect_inventory_size"));
     public static final String player_not_found_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.player_not_found"));
 
+    public static final String success_safe_give_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.success_safe_give"));
+
     public static final String no_permission_to_create_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.no_permission_to_create"));
     public static final String no_permission_to_open_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.no_permission_to_open"));
 
@@ -43,6 +45,9 @@ public class ConfigLoad {
     public static final String save_password = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.save_password"));
     public static final String enter_password = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.enter_password"));
     public static final String try_open_safe = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.try_open_safe"));
+
+    public static final Material pressed_button_material = Material.valueOf(Plugin.getInstance().getConfig().getString("menu.pressed_button_material"));
+    public static final Material done_button_material = Material.valueOf(Plugin.getInstance().getConfig().getString("menu.done_button_material"));
 
     private ConfigLoad() {
     }
