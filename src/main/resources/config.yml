@@ -1,52 +1,91 @@
+# Translated by the translator
+
+#The material of the safe. What it will look like
 safe_block: ENDER_CHEST
+
+#The name of the safe in your inventory
 safe_item_name: '&d&lSafe'
+
+#Description of the safe in your inventory
 safe_item_lore:
   - '&f--------'
   - '&c %size% &fslots'
   - '&f--------'
 
+#Will the safe fall out if it is broken
 drop_safe_if_break: 'NO'
+
+#Will resources fall out of the safe if it is broken
 drop_resource_if_break: 'YES'
 
+
 menu:
+  #Title menu when creating a password
   create_password: 'Create password:'
+
+  #The name of the save button when creating a password
   save_password: '&aSave PIN code'
 
+  #Title menu during password entry
   enter_password: 'Enter the password:'
+
+  #The name of the button to open the safe
   try_open_safe: "&aOpen the safe"
 
+  #The title of the safe inside
   safe_menu_title: 'Player &c&l%player%`s &rsafe'
 
+  #Setting up unavailable slots
   locked_slot:
     material: BLACK_STAINED_GLASS_PANE
     name: '&cLocket slot'
 
+  #The material of the button pressed while entering the password
   pressed_button_material: RED_STAINED_GLASS_PANE
+
+  #The material of the button for saving the password and opening the safe
   done_button_material: LIME_STAINED_GLASS_PANE
 
+
+#Setting up sounds
 sound:
+  #Sound during inventory opening
   safe_open:
+    #ID of sound
     sound: BLOCK_CHEST_OPEN
+    #Volume sound
     volume: 0.5F
+    #speed sound
     speed: 0.5F
+  #Sound during the opening of the inventory with a PIN code
   open_password_menu:
     sound: BLOCK_CHEST_OPEN
     volume: 0.5F
     speed: 1.5F
+  #Sound when an unsuccessful attempt to open the safe
   invalid_password:
     sound: ENTITY_VILLAGER_NO
     volume: 0.5F
     speed: 1F
 
 message:
-  # Message to the console
-  # Сообщение для консоли
+  #Messages to the console if the player was not specified
   enter_the_player: '&cSpecify player 2 with the parameter'
+
+  #Message if the size of the safe was not specified
   enter_inventory_size: '&cEnter the inventory size'
+
+  #A message if the size of the safe is specified incorrectly
   incorrect_inventory_size: '&cEnter a number from 1 to 54'
+
+  #A message if the player was not found
   player_not_found: '&cA player with that name has not been found'
 
+  #Message if there is no permission to create a safe
   no_permission_to_create: "&cYou don't have permission to create a safe"
+
+  #A message if the player does not have permission to open the safe
   no_permission_to_open: '&cYou do not have permission to open the safe'
 
+  #Message if the safe has been issued successfully
   success_safe_give: '&aThe safe has been successfully issued'
