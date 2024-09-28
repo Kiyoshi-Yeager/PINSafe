@@ -28,6 +28,11 @@ public class ConfigLoad {
     public static final Material locket_slot_material = Material.valueOf(Plugin.getInstance().getConfig().getString("menu.locked_slot.material"));
     public static final String locket_slot_name = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.locked_slot.name"));
 
+    public static final String enter_the_player_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.enter_the_player"));
+    public static final String not_enough_permissions_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.not_enough_permissions"));
+    public static final String enter_inventory_size = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.enter_inventory_size"));
+    public static final String incorrect_inventory_size = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.incorrect_inventory_size"));
+
     public static final String safe_menu_title = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.safe_menu_title"));
     public static final String create_password = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.create_password"));
     public static final String save_password = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.save_password"));

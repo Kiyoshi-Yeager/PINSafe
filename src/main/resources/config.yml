@@ -31,3 +31,11 @@ sound:
     sound: ENTITY_VILLAGER_NO
     volume: 0.5F
     speed: 1F
+
+command:
+  # Message to the console
+  # Сообщение для консоли
+  enter_the_player: '&cSpecify player 2 with the parameter'
+  not_enough_permissions: '&cNot enough permissions to execute this command'
+  enter_inventory_size: '&cEnter the inventory size'
+  incorrect_inventory_size: '&cEnter a number from 1 to 54'
