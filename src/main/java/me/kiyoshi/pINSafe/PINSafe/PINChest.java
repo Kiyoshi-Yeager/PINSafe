@@ -1,5 +1,6 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
+import me.kiyoshi.pINSafe.ConfigLoad;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,10 +33,10 @@ public class PINChest {
         this.location = location;
         if (size % 9 != 0) {
             int newSize = ((size / 9) + 1) * 9;
-            this.inventory = Bukkit.createInventory(null, newSize, "Хранилище");
+            this.inventory = Bukkit.createInventory(null, newSize, ConfigLoad.safe_menu_title.replace("%player%", Bukkit.getOfflinePlayer(playerUuid).getName()));
             int remains = newSize - size;
-            ItemStack itemStack = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE, 1)
-                    .setName("&rBlock_slot")
+            ItemStack itemStack = new ItemBuilder(ConfigLoad.locket_slot_material, 1)
+                    .setName(ConfigLoad.locket_slot_name)
                     .addPersistent("block_slot", PersistentDataType.BOOLEAN, true)
                     .build();
             for (int i = newSize - 1; i >= newSize - remains; i--) {

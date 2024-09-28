@@ -1,7 +1,6 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
 import me.kiyoshi.pINSafe.ConfigLoad;
-import me.kiyoshi.pINSafe.Plugin;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -54,6 +53,7 @@ public class PINChestManager implements Listener {
                 .addPersistent("save_password_button", PersistentDataType.BOOLEAN, true)
                 .build());
         player.openInventory(inventory);
+        player.playSound(player.getLocation(), ConfigLoad.open_password_menu_sound, ConfigLoad.open_password_menu_volume, ConfigLoad.open_password_menu_speed);
         new WaitingPINChest(block.getLocation(), block.getBlockData(), player);
     }
 
@@ -116,10 +116,11 @@ public class PINChestManager implements Listener {
                                             }
                                         }
                                     }
-                                    waitingPINChestList.get(player).getLocation().getBlock().setType(ConfigLoad.material);
+                                    waitingPINChestList.get(player).getLocation().getBlock().setType(ConfigLoad.safe_material);
                                     waitingPINChestList.get(player).getLocation().getBlock().setBlockData(waitingPINChestList.get(player).getBlockData());
                                     PINChest pinChest = new PINChest(password, player.getUniqueId(), waitingPINChestList.get(player).getLocation(), size);
                                     player.openInventory(pinChest.getInventory());
+                                    player.playSound(pinChest.getLocation(), ConfigLoad.safe_open_sound, ConfigLoad.safe_open_volume, ConfigLoad.safe_open_speed);
                                     waitingPINChestList.remove(player);
                                 }
                             } else if (event.getSlot() <= 10) {
@@ -152,6 +153,11 @@ public class PINChestManager implements Listener {
                                     Location location = new Location(world, x, y, z);
                                     PINChest pinChest = getPINChestByLocation(location);
                                     player.openInventory(pinChest.getInventory());
+                                    player.playSound(pinChest.getLocation(), ConfigLoad.safe_open_sound, ConfigLoad.safe_open_volume, ConfigLoad.safe_open_speed);
+                                }
+                                else {
+                                    Player player = (Player) event.getWhoClicked();
+                                    player.playSound(player.getLocation(), ConfigLoad.invalid_password_sound, ConfigLoad.invalid_password_volume, ConfigLoad.invalid_password_speed);
                                 }
                             } else if (event.getSlot() <= 10) {
                                 int slot = event.getSlot();
@@ -179,7 +185,7 @@ public class PINChestManager implements Listener {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Player player = event.getPlayer();
             Block block = event.getClickedBlock();
-            if (block.getType() == ConfigLoad.material) {
+            if (block.getType() == ConfigLoad.safe_material) {
                 PINChest pinChest = getPINChestByLocation(block.getLocation());
                 if (pinChest != null) {
                     event.setCancelled(true);
@@ -194,6 +200,7 @@ public class PINChestManager implements Listener {
                             .addPersistent("location", PersistentDataType.STRING, stringLocation)
                             .build());
                     player.openInventory(inventory);
+                    player.playSound(player.getLocation(), ConfigLoad.open_password_menu_sound, ConfigLoad.open_password_menu_volume, ConfigLoad.open_password_menu_speed);
                 }
             }
         }

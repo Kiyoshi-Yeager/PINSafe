@@ -1,7 +1,33 @@
 safe_block: ENDER_CHEST
-menu_title:
+safe_item_name: '&9Safe'
+safe_item_lore:
+  - '&9----------'
+  - '&c %size% &rslots'
+  - '&9----------'
+
+menu:
   create_password: '&9Create password:'
   save_password: '&r&aSave PIN code'
 
   enter_password: '&9Enter the password:'
   try_open_safe: "&r&aOpen the safe"
+
+  safe_menu_title: 'Player &c%player%`s &rsafe'
+
+  locked_slot:
+    material: BLACK_STAINED_GLASS_PANE
+    name: '&cLocket slot'
+
+sound:
+  safe_open:
+    sound: BLOCK_CHEST_OPEN
+    volume: 0.5F
+    speed: 0.5F
+  open_password_menu:
+    sound: BLOCK_CHEST_OPEN
+    volume: 0.5F
+    speed: 1.5F
+  invalid_password:
+    sound: ENTITY_VILLAGER_NO
+    volume: 0.5F
+    speed: 1F

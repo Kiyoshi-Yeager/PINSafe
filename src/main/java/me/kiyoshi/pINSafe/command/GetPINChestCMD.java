@@ -3,7 +3,6 @@ package me.kiyoshi.pINSafe.command;
 import me.kiyoshi.pINSafe.ConfigLoad;
 import me.kiyoshi.pINSafe.util.ChatUtil;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GetPINChestCMD implements CommandExecutor {
     @Override
@@ -43,9 +45,15 @@ public class GetPINChestCMD implements CommandExecutor {
             return true;
         }
 
+        List<String> lore = new ArrayList<>();
 
-        ItemStack itemStack = new ItemBuilder(ConfigLoad.material, 1)
-                .setName("&rХранилище")
+        for (String line: ConfigLoad.safe_item_lore) {
+            lore.add(line.replace("%size%", size + ""));
+        }
+
+        ItemStack itemStack = new ItemBuilder(ConfigLoad.safe_material, 1)
+                .setName(ConfigLoad.safe_item_name)
+                .setLore(lore)
                 .addPersistent("pin_chest", PersistentDataType.BOOLEAN, true)
                 .addPersistent("size", PersistentDataType.INTEGER, size)
                 .build();
