@@ -131,8 +131,12 @@ public class PINChestManager implements Listener {
                                         }
                                     }
                                 }
-                                waitingPINChestList.get(player).getLocation().getBlock().setType(ConfigLoad.safe_material);
-                                waitingPINChestList.get(player).getLocation().getBlock().setBlockData(waitingPINChestList.get(player).getBlockData());
+                                Block block = waitingPINChestList.get(player).getLocation().getBlock();
+                                block.setType(ConfigLoad.safe_material);
+                                block.setBlockData(waitingPINChestList.get(player).getBlockData());
+                                if (block.getType() != ConfigLoad.safe_material) {
+                                    block.setType(ConfigLoad.safe_material);
+                                }
                                 PINChest pinChest = new PINChest(password, player.getUniqueId(), waitingPINChestList.get(player).getLocation(), size);
                                 player.openInventory(pinChest.getInventory());
                                 player.playSound(pinChest.getLocation(), ConfigLoad.safe_open_sound, ConfigLoad.safe_open_volume, ConfigLoad.safe_open_speed);

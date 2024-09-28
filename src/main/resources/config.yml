@@ -1,21 +1,21 @@
 safe_block: ENDER_CHEST
-safe_item_name: '&9Safe'
+safe_item_name: '&d&lSafe'
 safe_item_lore:
-  - '&9----------'
-  - '&c %size% &rslots'
-  - '&9----------'
+  - '&f--------'
+  - '&c %size% &fslots'
+  - '&f--------'
 
 drop_safe_if_break: 'NO'
 drop_resource_if_break: 'YES'
 
 menu:
-  create_password: '&9Create password:'
-  save_password: '&r&aSave PIN code'
+  create_password: 'Create password:'
+  save_password: '&aSave PIN code'
 
-  enter_password: '&9Enter the password:'
-  try_open_safe: "&r&aOpen the safe"
+  enter_password: 'Enter the password:'
+  try_open_safe: "&aOpen the safe"
 
-  safe_menu_title: 'Player &c%player%`s &rsafe'
+  safe_menu_title: 'Player &c&l%player%`s &rsafe'
 
   locked_slot:
     material: BLACK_STAINED_GLASS_PANE

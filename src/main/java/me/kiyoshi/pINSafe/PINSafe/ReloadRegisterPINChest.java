@@ -77,6 +77,12 @@ public class ReloadRegisterPINChest {
                 }
                 new PINChest(password, uuid, location, inventory);
             }
+
+            for (PINChest pinChest: PINChestManager.instance.registerPINChestList) {
+                if (pinChest.getLocation().getBlock().getType() != ConfigLoad.safe_material) {
+                    pinChest.getLocation().getBlock().setType(ConfigLoad.safe_material);
+                }
+            }
         }
     }
 }
