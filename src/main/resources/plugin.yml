@@ -5,3 +5,9 @@ api-version: '1.21'
 
 commands:
   getpinsafe:
+    permission: pinsafe.command
+
+permissions:
+  pinsafe.command:
+    description: Allows the use of /getpinsafe command
+    default: op
