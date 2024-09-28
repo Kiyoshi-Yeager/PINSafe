@@ -5,6 +5,9 @@ safe_item_lore:
   - '&c %size% &rslots'
   - '&9----------'
 
+drop_safe_if_break: 'NO'
+drop_resource_if_break: 'YES'
+
 menu:
   create_password: '&9Create password:'
   save_password: '&r&aSave PIN code'

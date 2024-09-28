@@ -12,6 +12,9 @@ public class ConfigLoad {
     public static final String safe_item_name = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("safe_item_name"));
     public static final List<String> safe_item_lore = translateColorLore(Plugin.getInstance().getConfig().getStringList("safe_item_lore"));
 
+    public static final String drop_safe_if_break = Plugin.getInstance().getConfig().getString("drop_safe_if_break");
+    public static final String drop_resource_if_break = Plugin.getInstance().getConfig().getString("drop_resource_if_break");
+
     public static final Sound safe_open_sound = Sound.valueOf(Plugin.getInstance().getConfig().getString("sound.safe_open.sound"));
     public static final Float safe_open_volume = Float.valueOf(Plugin.getInstance().getConfig().getString("sound.safe_open.volume"));
     public static final Float safe_open_speed = Float.valueOf(Plugin.getInstance().getConfig().getString("sound.safe_open.speed"));

@@ -191,6 +191,43 @@ public class PINChestManager implements Listener {
     public void onBreak(BlockBreakEvent event) {
         PINChest pinChest = getPINChestByLocation(event.getBlock().getLocation());
         if (pinChest != null) {
+            event.setCancelled(true);
+            pinChest.getLocation().getBlock().setType(Material.AIR);
+            if (ConfigLoad.drop_safe_if_break.equalsIgnoreCase("YES")) {
+                int size = 0;
+                for (int i = 0; i < pinChest.getInventory().getSize(); i++) {
+                    if (pinChest.getInventory().getItem(i) == null) {
+                        size++;
+                        continue;
+                    }
+                    if (!pinChest.getInventory().getItem(i).getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("block_slot"))) {
+                        size++;
+                    }
+                }
+
+                List<String> lore = new ArrayList<>();
+                for (String line: ConfigLoad.safe_item_lore) {
+                    lore.add(line.replace("%size%", size + ""));
+                }
+
+                ItemStack itemStack = new ItemBuilder(ConfigLoad.safe_material, 1)
+                        .setName(ConfigLoad.safe_item_name)
+                        .setLore(lore)
+                        .addPersistent("pin_chest", PersistentDataType.BOOLEAN, true)
+                        .addPersistent("size", PersistentDataType.INTEGER, size)
+                        .build();
+                pinChest.getLocation().getWorld().dropItem(pinChest.getLocation(), itemStack);
+            }
+            if (ConfigLoad.drop_resource_if_break.equalsIgnoreCase("YES")) {
+                for (int i = 0; i < pinChest.getInventory().getSize(); i++) {
+                    if (pinChest.getInventory().getItem(i) != null) {
+                        if (pinChest.getInventory().getItem(i).getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("block_slot"))) {
+                            continue;
+                        }
+                        pinChest.getLocation().getWorld().dropItem(pinChest.getLocation(), pinChest.getInventory().getItem(i));
+                    }
+                }
+            }
             registerPINChestList.remove(pinChest);
         }
     }
