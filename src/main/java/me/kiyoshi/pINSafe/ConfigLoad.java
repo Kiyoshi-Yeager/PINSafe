@@ -6,7 +6,6 @@ import org.bukkit.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ConfigLoad {
     public static Material safe_material = Material.valueOf(Plugin.getInstance().getConfig().getString("safe_block"));
@@ -28,10 +27,13 @@ public class ConfigLoad {
     public static final Material locket_slot_material = Material.valueOf(Plugin.getInstance().getConfig().getString("menu.locked_slot.material"));
     public static final String locket_slot_name = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.locked_slot.name"));
 
-    public static final String enter_the_player_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.enter_the_player"));
-    public static final String not_enough_permissions_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.not_enough_permissions"));
-    public static final String enter_inventory_size = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.enter_inventory_size"));
-    public static final String incorrect_inventory_size = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("command.incorrect_inventory_size"));
+    public static final String enter_the_player_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.enter_the_player"));
+    public static final String enter_inventory_size_massage = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.enter_inventory_size"));
+    public static final String incorrect_inventory_size_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.incorrect_inventory_size"));
+    public static final String player_not_found_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.player_not_found"));
+
+    public static final String no_permission_to_create_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.no_permission_to_create"));
+    public static final String no_permission_to_open_message = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("message.no_permission_to_open"));
 
     public static final String safe_menu_title = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.safe_menu_title"));
     public static final String create_password = ChatColor.translateAlternateColorCodes('&', Plugin.getInstance().getConfig().getString("menu.create_password"));

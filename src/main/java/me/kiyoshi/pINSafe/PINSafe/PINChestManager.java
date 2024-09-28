@@ -1,6 +1,7 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
 import me.kiyoshi.pINSafe.ConfigLoad;
+import me.kiyoshi.pINSafe.util.ChatUtil;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -62,7 +63,12 @@ public class PINChestManager implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         if (event.getItemInHand().getItemMeta().getPersistentDataContainer().has(NamespacedKey.fromString("pin_chest"))) {
             event.setCancelled(true);
-            placePinChest(event.getBlock(), event.getPlayer());
+            if (event.getPlayer().hasPermission("pinsafe.createsafe")) {
+                placePinChest(event.getBlock(), event.getPlayer());
+            }
+            else {
+                ChatUtil.sendMessage(event.getPlayer(), ConfigLoad.no_permission_to_create_message);
+            }
         }
     }
 
@@ -198,18 +204,27 @@ public class PINChestManager implements Listener {
                 PINChest pinChest = getPINChestByLocation(block.getLocation());
                 if (pinChest != null) {
                     event.setCancelled(true);
-                    player.closeInventory();
-                    Inventory inventory = Bukkit.createInventory(null, InventoryType.WORKBENCH, ConfigLoad.enter_password);
-                    Location location = pinChest.getLocation();
-                    String stringLocation = location.getWorld().getName() + "," + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ();
-                    inventory.setItem(0, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, 1)
-                            .setName(ConfigLoad.try_open_safe)
-                            .addPersistent("open_chest_button", PersistentDataType.BOOLEAN, true)
-                            .addPersistent("password", PersistentDataType.STRING, pinChest.getPassword())
-                            .addPersistent("location", PersistentDataType.STRING, stringLocation)
-                            .build());
-                    player.openInventory(inventory);
-                    player.playSound(player.getLocation(), ConfigLoad.open_password_menu_sound, ConfigLoad.open_password_menu_volume, ConfigLoad.open_password_menu_speed);
+                    if (player.hasPermission("pinsafe.opensafe")) {
+                        player.closeInventory();
+                        if (player.hasPermission("pinsafe.opensafenopassword")) {
+                            player.openInventory(pinChest.getInventory());
+                        } else {
+                            Inventory inventory = Bukkit.createInventory(null, InventoryType.WORKBENCH, ConfigLoad.enter_password);
+                            Location location = pinChest.getLocation();
+                            String stringLocation = location.getWorld().getName() + "," + location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ();
+                            inventory.setItem(0, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, 1)
+                                    .setName(ConfigLoad.try_open_safe)
+                                    .addPersistent("open_chest_button", PersistentDataType.BOOLEAN, true)
+                                    .addPersistent("password", PersistentDataType.STRING, pinChest.getPassword())
+                                    .addPersistent("location", PersistentDataType.STRING, stringLocation)
+                                    .build());
+                            player.openInventory(inventory);
+                            player.playSound(player.getLocation(), ConfigLoad.open_password_menu_sound, ConfigLoad.open_password_menu_volume, ConfigLoad.open_password_menu_speed);
+                        }
+                    }
+                    else {
+                        ChatUtil.sendMessage(player, ConfigLoad.no_permission_to_open_message);
+                    }
                 }
             }
         }

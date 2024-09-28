@@ -32,10 +32,13 @@ sound:
     volume: 0.5F
     speed: 1F
 
-command:
+message:
   # Message to the console
   # Сообщение для консоли
   enter_the_player: '&cSpecify player 2 with the parameter'
-  not_enough_permissions: '&cNot enough permissions to execute this command'
   enter_inventory_size: '&cEnter the inventory size'
   incorrect_inventory_size: '&cEnter a number from 1 to 54'
+  player_not_found: '&cA player with that name has not been found'
+
+  no_permission_to_create: "&cYou don't have permission to create a safe"
+  no_permission_to_open: '&cYou do not have permission to open the safe'

@@ -1,5 +1,5 @@
 name: PINSafe
-version: '1.0-SNAPSHOT'
+version: '1.0'
 main: me.kiyoshi.pINSafe.Plugin
 api-version: '1.21'
 
@@ -11,3 +11,12 @@ permissions:
   pinsafe.command:
     description: Allows the use of /getpinsafe command
     default: op
+  pinsafe.createsafe:
+    description: Allows you to create a safes
+    default: true
+  pinsafe.opensafe:
+    description: Allows you to open the safe
+    default: true
+  pinsafe.opensafenopassword:
+    description: Allows you to open the safe without entering a password
+    default: false

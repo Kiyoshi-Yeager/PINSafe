@@ -4,6 +4,7 @@ import me.kiyoshi.pINSafe.ConfigLoad;
 import me.kiyoshi.pINSafe.util.ChatUtil;
 import me.kiyoshi.pINSafe.util.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -13,22 +14,26 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GetPINChestCMD implements TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length == 0) {
-            ChatUtil.sendMessage(commandSender, ConfigLoad.enter_inventory_size);
+            ChatUtil.sendMessage(commandSender, ConfigLoad.enter_inventory_size_massage);
             return true;
         }
         try {
             Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            ChatUtil.sendMessage(commandSender, ConfigLoad.incorrect_inventory_size);
+            ChatUtil.sendMessage(commandSender, ConfigLoad.incorrect_inventory_size_message);
             return true;
         }
         int size = Integer.parseInt(args[0]);
+        if (size <= 0 || size >= 55) {
+            ChatUtil.sendMessage(commandSender, ConfigLoad.incorrect_inventory_size_message);
+        }
         Player player;
         if (!(commandSender instanceof Player)) {
             if (args.length < 2) {
@@ -40,6 +45,10 @@ public class GetPINChestCMD implements TabExecutor {
         else {
             if (args.length > 1) {
                 player = Bukkit.getPlayer(args[1]);
+                if (player == null) {
+                    ChatUtil.sendMessage(commandSender, ConfigLoad.player_not_found_message);
+                    return true;
+                }
             }
             else {
                 player = (Player) commandSender;
@@ -62,6 +71,11 @@ public class GetPINChestCMD implements TabExecutor {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (args.length == 1) {
+            return List.of("<1...54>");
+        } else if (args.length == 2) {
+            return null;
+        }
         return List.of();
     }
 }

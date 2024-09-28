@@ -1,5 +1,6 @@
 package me.kiyoshi.pINSafe.PINSafe;
 
+import me.kiyoshi.pINSafe.ConfigLoad;
 import me.kiyoshi.pINSafe.Plugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -67,7 +68,7 @@ public class ReloadRegisterPINChest {
                 UUID uuid = UUID.fromString(config.getString(key + ".uuid"));
                 Location location = config.getLocation(key + ".location");
                 int size = config.getInt(key + ".size");
-                Inventory inventory = Bukkit.createInventory(null, size, "Хранилище");
+                Inventory inventory = Bukkit.createInventory(null, size, ConfigLoad.safe_menu_title);
                 ConfigurationSection inventorySection = config.getConfigurationSection(key + ".inventory");
                 for (String slotKey: inventorySection.getKeys(false)) {
                     int slot = Integer.parseInt(slotKey);
