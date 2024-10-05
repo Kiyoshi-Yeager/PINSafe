@@ -1,9 +1,21 @@
-_translated with the help of a translator_
-# **PIN Safe**
+# PINsafe for 1.21
+## What adds
+Now you can get a safe with a graphic PIN codes. You can place it and enter the PIN code. Now to open it, you need to enter the PIN code. The safe can be any block.The size of the safe's inventory can be from 1 to 54 slots.
+## How to use
+Use the paper core or its forks. Transfer the jar file to the plugins folder. Start the server. You can customize the plugin in the PINSafe/config.yml file. Use command /getpinsafe <1...54> to get a safe.
+## Customization
+By opening config.yml you can configure:
+- Which block will serve as a safe
+- How the safe will look in your inventory
+- What will happen to the resource safe when it is broken
+- All menus: title and decorative items
+- You can adjust all the sounds, their speed and volume
+- All messages
 
-
-_us_
-This is a plugin for Minecraft that adds the ability to create safes with PIN protection, anyone knowing it can open it. Right-clicking on the storage opens a graphical menu in the form of a workbench. On the left side you can enter the PIN code, and on the right side you can try to open the safe. This is an amateur project created by one person. I don't have much experience in this field, so it will take a lot of time to work on the plugin. You can contact me in this [Discord channel](https://discord.gg/EbTuyMEUb2)
-
-_ru_
-Это плагин для Minecraft, который добавляет возможность создавать хранилища с PIN-кодом, кто угодно зная его может может открыть его. Когда вы нажимает ПКМ на хранилище у выс открывается GUI меню в виде верстака в котом с левой стороны  вы можете ввести PIN код, а справой попытаться открыть сейф. Это любительский проект, созданный одним человеком. У меня нет большого опыта в этой области, поэтому работа над плагином займёт ещё много времени. Связаться со мной можно в этом [Дискорд канале](https://discord.gg/EbTuyMEUb2)
+There are also permissions:
+- pinsafe.command - Who can use the command
+- pinsafe.createsafe - Who can create a safe
+- pinsafe.opensafe - Who can open the safe
+- pinsafe.opensafenopassword - Who can open the safe without entering a password
+## Сontact me
+If you find a bug, have a suggestion, or just want to write to me, go to [Discord server](https://discord.gg/EbTuyMEUb2)
