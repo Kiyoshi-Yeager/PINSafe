@@ -17,5 +17,3 @@ There are also permissions:
 - pinsafe.createsafe - Who can create a safe
 - pinsafe.opensafe - Who can open the safe
 - pinsafe.opensafenopassword - Who can open the safe without entering a password
-## Сontact me
-If you find a bug, have a suggestion, or just want to write to me, go to [Discord server](https://discord.gg/EbTuyMEUb2)
